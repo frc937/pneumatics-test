@@ -75,10 +75,13 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     if (controller.getPOV() == 0 || controller.getPOV() == 360) {
       solenoid1.set(Value.kForward);
+      solenoid2.set(Value.kForward);
     } else if (controller.getPOV() == 180) {
       solenoid1.set(Value.kReverse);
+      solenoid2.set(Value.kReverse);
     } else if (controller.getAButton()) {
       solenoid1.set(Value.kOff);
+      solenoid2.set(Value.kOff);
     }
   }
 
