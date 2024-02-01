@@ -11,6 +11,9 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -26,7 +29,9 @@ import edu.wpi.first.wpilibj.XboxController;
 public class Robot extends TimedRobot {
   public DoubleSolenoid solenoid1;
   public DoubleSolenoid solenoid2;
-  public XboxController controller;
+  public static XboxController controller;
+  public CANSparkMax sparkMax1;
+  public CANSparkMax sparkMax2;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -37,6 +42,8 @@ public class Robot extends TimedRobot {
     solenoid1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 7);
     solenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 4, 5);
     controller = new XboxController(0);
+    sparkMax1 = new CANSparkMax(1, MotorType.kBrushless);
+    sparkMax2 = new CANSparkMax(2, MotorType.kBrushless);
   }
 
   /**
@@ -83,6 +90,9 @@ public class Robot extends TimedRobot {
       solenoid1.set(Value.kOff);
       solenoid2.set(Value.kOff);
     }
+
+    sparkMax1.set(getScaledControllerLeftYAxis());
+    sparkMax2.set(getScaledControllerRightYAxis());
   }
 
   /** This function is called once when the robot is disabled. */
@@ -108,4 +118,81 @@ public class Robot extends TimedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {}
+
+  private static double scaleAxis(double axis) {
+    double deadbanded = MathUtil.applyDeadband(axis, 0.1);
+    return Math.pow(deadbanded, 3);
+  }
+
+  /**
+   * Gets x-axis of left stick of driver controller.
+   *
+   * @return x-axis of left stick of driver controller.
+   */
+  public static double getControllerLeftXAxis() {
+    return controller.getLeftX();
+  }
+
+  /**
+   * Gets scaled x-axis of left stick of driver controller.
+   *
+   * @return scaled x-axis of left stick of driver controller.
+   */
+  public static double getScaledControllerLeftXAxis() {
+    return scaleAxis(getControllerLeftXAxis());
+  }
+
+  /**
+   * Gets y-axis of left stick of driver controller.
+   *
+   * @return y-axis of left stick of driver controller.
+   */
+  public static double getControllerLeftYAxis() {
+    return controller.getLeftY();
+  }
+
+  /**
+   * Gets scaled y-axis of left stick of driver controller.
+   *
+   * @return scaled y-axis of left stick of driver controller.
+   */
+  public static double getScaledControllerLeftYAxis() {
+    return scaleAxis(getControllerLeftYAxis());
+  }
+
+  /**
+   * Gets x-axis of right stick of driver controller.
+   *
+   * @return x-axis of right stick of driver controller.
+   */
+  public static double getControllerRightXAxis() {
+    return controller.getRightX();
+  }
+
+  /**
+   * Gets scaled x-axis of right stick of driver controller.
+   *
+   * @return scaled x-axis of right stick of driver controller.
+   */
+  public static double getScaledControllerRightXAxis() {
+    return scaleAxis(getControllerRightXAxis());
+  }
+
+  /**
+   * Gets y-axis of right stick of driver controller.
+   *
+   * @return y-axis of right stick of driver controller.
+   */
+  public static double getControllerRightYAxis() {
+    return controller.getRightY();
+  }
+
+  /**
+   * Gets scaled y-axis of right stick of driver controller.
+   *
+   * @return scaled y-axis of right stick of driver controller.
+   */
+  public static double getScaledControllerRightYAxis() {
+    return scaleAxis(getControllerRightYAxis());
+  }
 }
