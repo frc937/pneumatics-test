@@ -24,7 +24,8 @@ import edu.wpi.first.wpilibj.XboxController;
  * project.
  */
 public class Robot extends TimedRobot {
-  public DoubleSolenoid solenoid;
+  public DoubleSolenoid solenoid1;
+  public DoubleSolenoid solenoid2;
   public XboxController controller;
 
   /**
@@ -33,7 +34,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 7);
+    solenoid1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 7);
+    solenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 4, 5);
     controller = new XboxController(0);
   }
 
@@ -72,11 +74,14 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     if (controller.getPOV() == 0 || controller.getPOV() == 360) {
-      solenoid.set(Value.kForward);
+      solenoid1.set(Value.kForward);
+      solenoid2.set(Value.kForward);
     } else if (controller.getPOV() == 180) {
-      solenoid.set(Value.kReverse);
+      solenoid1.set(Value.kReverse);
+      solenoid2.set(Value.kReverse);
     } else if (controller.getAButton()) {
-      solenoid.set(Value.kOff);
+      solenoid1.set(Value.kOff);
+      solenoid2.set(Value.kOff);
     }
   }
 
