@@ -30,8 +30,8 @@ public class Robot extends TimedRobot {
   public DoubleSolenoid solenoid1;
   public DoubleSolenoid solenoid2;
   public static XboxController controller;
-  public CANSparkMax sparkMax1;
-  public CANSparkMax sparkMax2;
+  public CANSparkMax leftStickSparkMax;
+  public CANSparkMax rightStickSparkMax;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -42,8 +42,8 @@ public class Robot extends TimedRobot {
     solenoid1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 7);
     solenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 4, 5);
     controller = new XboxController(0);
-    sparkMax1 = new CANSparkMax(1, MotorType.kBrushless);
-    sparkMax2 = new CANSparkMax(2, MotorType.kBrushless);
+    leftStickSparkMax = new CANSparkMax(3, MotorType.kBrushless);
+    rightStickSparkMax = new CANSparkMax(5, MotorType.kBrushless);
   }
 
   /**
@@ -91,8 +91,8 @@ public class Robot extends TimedRobot {
       solenoid2.set(Value.kOff);
     }
 
-    sparkMax1.set(getScaledControllerLeftYAxis());
-    sparkMax2.set(getScaledControllerRightYAxis());
+    leftStickSparkMax.set(getScaledControllerLeftYAxis());
+    rightStickSparkMax.set(getScaledControllerRightYAxis());
   }
 
   /** This function is called once when the robot is disabled. */
