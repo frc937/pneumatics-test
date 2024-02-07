@@ -11,6 +11,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.CANSparkMax;
 import edu.wpi.first.math.MathUtil;
@@ -33,6 +34,9 @@ public class Robot extends TimedRobot {
   public CANSparkMax leftStickSparkMax;
   public CANSparkMax rightStickSparkMax;
 
+  /** Dummy TalonFX to get Phoenix diagnostics to work for the PDP */
+  public TalonFX talon;
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -42,6 +46,7 @@ public class Robot extends TimedRobot {
     solenoid1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 7);
     solenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 4, 5);
     controller = new XboxController(0);
+    talon = new TalonFX(1);
     leftStickSparkMax = new CANSparkMax(3, MotorType.kBrushless);
     rightStickSparkMax = new CANSparkMax(5, MotorType.kBrushless);
   }
