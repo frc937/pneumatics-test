@@ -47,8 +47,8 @@ public class Robot extends TimedRobot {
     solenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 4, 5);
     controller = new XboxController(0);
     talon = new TalonFX(1);
-    leftStickSparkMax = new CANSparkMax(3, MotorType.kBrushless);
-    rightStickSparkMax = new CANSparkMax(5, MotorType.kBrushless);
+    leftStickSparkMax = new CANSparkMax(4, MotorType.kBrushless);
+    rightStickSparkMax = new CANSparkMax(6, MotorType.kBrushless);
   }
 
   /**
@@ -96,8 +96,8 @@ public class Robot extends TimedRobot {
       solenoid2.set(Value.kOff);
     }
 
-    // leftStickSparkMax.set(getScaledControllerLeftYAxis());
-    // rightStickSparkMax.set(getScaledControllerRightYAxis());
+    leftStickSparkMax.set(getScaledControllerLeftYAxis());
+    rightStickSparkMax.set(getScaledControllerRightYAxis());
   }
 
   /** This function is called once when the robot is disabled. */
