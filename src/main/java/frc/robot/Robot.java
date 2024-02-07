@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    solenoid1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 6, 7);
+    solenoid1 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 7, 6);
     solenoid2 = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 4, 5);
     controller = new XboxController(0);
     talon = new TalonFX(1);
