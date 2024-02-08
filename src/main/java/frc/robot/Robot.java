@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -98,6 +99,9 @@ public class Robot extends TimedRobot {
 
     leftStickSparkMax.set(getScaledControllerLeftYAxis());
     rightStickSparkMax.set(getScaledControllerRightYAxis());
+
+    SmartDashboard.putNumber("LS SparkMax Speed", leftStickSparkMax.get());
+    SmartDashboard.putNumber("RS SparkMax Speed", rightStickSparkMax.get());
   }
 
   /** This function is called once when the robot is disabled. */
